@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 public class CsvFinanciamentoRepository implements FinanciamentoRepository {
-    private final String filePath;
+    private final String caminhoArquivo;
 
-    public CsvFinanciamentoRepository(String filePath) {
-        this.filePath = filePath;
+    public CsvFinanciamentoRepository(String caminhoArquivo) {
+        this.caminhoArquivo = caminhoArquivo;
     }
 
     @Override
@@ -19,12 +19,12 @@ public class CsvFinanciamentoRepository implements FinanciamentoRepository {
         List<Map<String, String>> data = new ArrayList<>();
 
         // try-with-resources
-        try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
-            String[] row;
+        try (CSVReader reader = new CSVReader(new FileReader(caminhoArquivo))) {
+            String[] linha;
             reader.readNext();
 
-            while ((row = reader.readNext()) != null) {
-                data.add(MapeamentoFinanciamento.mapRow(row));
+            while ((linha = reader.readNext()) != null) {
+                data.add(MapeamentoFinanciamento.mapRow(linha));
             }
         }
         return data;
